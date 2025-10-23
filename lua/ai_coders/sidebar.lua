@@ -35,11 +35,18 @@ local function ensure_placeholder_buf()
     return state.placeholder_buf
   end
 
+  local existing = vim.fn.bufnr("AI Coders Sidebar")
+  if existing ~= -1 and vim.api.nvim_buf_is_valid(existing) then
+    state.placeholder_buf = existing
+    return existing
+  end
+
   local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_name(buf, "AI Coders Sidebar")
+  pcall(vim.api.nvim_buf_set_name, buf, "AI Coders Sidebar")
   vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
   vim.api.nvim_buf_set_option(buf, "bufhidden", "hide")
   vim.api.nvim_buf_set_option(buf, "modifiable", false)
+  vim.api.nvim_buf_set_option(buf, "buflisted", false)
 
   local lines = {
     " AI Coders Sidebar",
@@ -51,6 +58,15 @@ local function ensure_placeholder_buf()
     " <leader>a d : close chat",
   }
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.api.nvim_create_autocmd("BufWipeout", {
+    buffer = buf,
+    callback = function()
+      if state.placeholder_buf == buf then
+        state.placeholder_buf = nil
+      end
+    end,
+    once = true,
+  })
   state.placeholder_buf = buf
   return buf
 end
