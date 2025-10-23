@@ -15,7 +15,7 @@ AI Coders is a Neovim plugin that gives you a right-side sidebar for chatting wi
 | Mapping          | Action                         |
 | ---------------- | ------------------------------ |
 | `<leader>af`     | Toggle the sidebar             |
-| `<leader>an`     | Create a new chat session      |
+| `<leader>ac`     | Create a new chat session      |
 | `<leader>a]`     | Cycle to the next chat session |
 | `<leader>a[`     | Cycle to the previous session  |
 | `<leader>ap`     | Pick a chat from a list        |
@@ -62,7 +62,7 @@ Adjust the commands to match the CLIs you have installed. The plugin ships with 
 ## Usage
 
 1. Press `<leader>af` to open the sidebar. A help buffer appears if no sessions are active.
-2. Press `<leader>an`, pick an agent from the menu, and a new terminal buffer launches that agent CLI.
+2. Press `<leader>ac`, pick an agent from the menu, and a new terminal buffer launches that agent CLI.
 3. Use `<leader>a]` / `<leader>a[` to cycle through chats, or `<leader>ap` to pick from a list.
 4. Close the sidebar with `<leader>af`. Sessions keep running in the background, so reopening the sidebar restores the last active chat.
 
@@ -79,7 +79,7 @@ require("ai_coders").setup {
   },
   mappings = {
     toggle = "<leader>af",
-    new_session = "<leader>an",
+    new_session = "<leader>ac",
     next_session = "<leader>a]",
     prev_session = "<leader>a[",
     pick_session = "<leader>ap",

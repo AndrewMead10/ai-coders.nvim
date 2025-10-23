@@ -39,7 +39,7 @@ M.defaults = {
   },
   mappings = {
     toggle = "<leader>af",
-    new_session = "<leader>an",
+    new_session = "<leader>ac",
     next_session = "<leader>a]",
     prev_session = "<leader>a[",
     pick_session = "<leader>ap",

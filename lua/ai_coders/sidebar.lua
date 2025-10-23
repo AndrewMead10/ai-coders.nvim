@@ -23,7 +23,7 @@ local function ensure_placeholder_buf()
   local lines = {
     " AI Coders Sidebar",
     " ------------------",
-    " <leader>a n : new chat",
+    " <leader>a c : new chat",
     " <leader>a f : toggle",
     " <leader>a ] : next chat",
     " <leader>a [ : previous chat",
