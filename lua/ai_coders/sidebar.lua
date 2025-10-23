@@ -5,6 +5,27 @@ local state = {
   placeholder_buf = nil,
 }
 
+local function escape_label(label)
+  return (label or ""):gsub("%%", "%%%%")
+end
+
+local function build_header(sessions, current_index)
+  if not sessions or vim.tbl_isempty(sessions) then
+    return " AI Coders "
+  end
+  local parts = {}
+  for idx, session in ipairs(sessions) do
+    local title = escape_label(session.title or session.agent_key or ("Chat " .. idx))
+    local tag = string.format("%d:%s", idx, title)
+    if idx == current_index then
+      table.insert(parts, string.format("[*%s*]", tag))
+    else
+      table.insert(parts, string.format("[ %s ]", tag))
+    end
+  end
+  return " AI " .. table.concat(parts, " ") .. "  (ac:new)"
+end
+
 local function valid_win(win)
   return win ~= nil and vim.api.nvim_win_is_valid(win)
 end
@@ -98,6 +119,7 @@ function M.show_placeholder(opts)
   end
   local buf = ensure_placeholder_buf()
   vim.api.nvim_win_set_buf(win, buf)
+  M.update_header({}, nil, opts)
 end
 
 function M.focus()
@@ -120,6 +142,19 @@ end
 
 function M.get_win()
   return state.win
+end
+
+function M.update_header(sessions, current_index, opts)
+  if not M.is_open() then
+    return
+  end
+  if not opts or opts.sidebar.header == false then
+    pcall(vim.api.nvim_win_set_option, state.win, "winbar", "")
+    return
+  end
+
+  local header = build_header(sessions, current_index)
+  pcall(vim.api.nvim_win_set_option, state.win, "winbar", header)
 end
 
 return M

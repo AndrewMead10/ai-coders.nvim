@@ -12,9 +12,11 @@ local function activate_session(index, opts)
   local session = sessions[index]
   if not session then
     Sidebar.show_placeholder(opts)
+    Sidebar.update_header(sessions, current_index, opts)
     return
   end
   Sidebar.show_buffer(session.buf, opts)
+  Sidebar.update_header(sessions, current_index, opts)
   if opts.session.on_session_activated then
     pcall(opts.session.on_session_activated, session)
   end
@@ -37,6 +39,7 @@ local function remove_session(index, opts, reason)
     else
       Sidebar.show_placeholder(opts)
     end
+    Sidebar.update_header({}, nil, opts)
     return
   end
 
@@ -101,6 +104,7 @@ function M.new_session(agent_key, opts)
   table.insert(sessions, session)
   current_index = #sessions
   Sidebar.show_buffer(session.buf, opts)
+  Sidebar.update_header(sessions, current_index, opts)
 
   vim.api.nvim_create_autocmd("BufWipeout", {
     buffer = session.buf,
@@ -129,9 +133,14 @@ function M.current()
   return current_index and sessions[current_index] or nil
 end
 
+function M.current_index()
+  return current_index
+end
+
 function M.cycle(offset, opts)
   if #sessions == 0 then
     Sidebar.show_placeholder(opts)
+    Sidebar.update_header({}, nil, opts)
     return
   end
   if not current_index then

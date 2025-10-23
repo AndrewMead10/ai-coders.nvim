@@ -7,6 +7,7 @@ AI Coders is a Neovim plugin that gives you a right-side sidebar for chatting wi
 - Toggleable sidebar pinned on the right (default width `50`).
 - Create as many chat sessions as you like, each backed by its own terminal buffer.
 - Cycle between active chats or pick one from a quick selector.
+- Visual session header in the sidebar winbar so you always know which chats are active.
 - Fully configurable agent registry: give each agent a label and launch command.
 - Sensible default keymaps that follow the requested `<leader>a` namespace.
 
@@ -76,6 +77,7 @@ require("ai_coders").setup {
     focus_back = false, -- reserved for future use
     stay_open = true,   -- keep sidebar visible after last session closes
     placeholder = true, -- show a helper buffer when no sessions exist
+    header = true,      -- display session tabs in the winbar
   },
   mappings = {
     toggle = "<leader>af",

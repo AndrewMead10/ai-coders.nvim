@@ -42,6 +42,7 @@ local function ensure_placeholder()
   local session = Sessions.current()
   if session then
     Sidebar.show_buffer(session.buf, Config.options)
+    Sidebar.update_header(Sessions.sessions(), Sessions.current_index(), Config.options)
   else
     Sidebar.show_placeholder(Config.options)
   end

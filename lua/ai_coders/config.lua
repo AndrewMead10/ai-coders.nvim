@@ -17,7 +17,7 @@ local default_agents = {
     desc = "Codex CLI agent",
   },
   claude = {
-    name = "Claude Code",
+    name = "Claude",
     cmd = { "claude" },
     desc = "Claude Code CLI",
   },
@@ -36,6 +36,7 @@ M.defaults = {
     focus_back = false,
     stay_open = true,
     placeholder = true,
+    header = true,
   },
   mappings = {
     toggle = "<leader>af",
