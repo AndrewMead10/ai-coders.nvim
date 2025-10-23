@@ -92,6 +92,10 @@ function M.prev_session()
   Sessions.cycle(-1, Config.options)
 end
 
+function M.close_session()
+  Sessions.close_current(Config.options)
+end
+
 function M.pick_session()
   local opts = Config.options
   local current_sessions = Sessions.sessions()
@@ -155,6 +159,10 @@ local function create_commands()
     M.prev_session()
   end, {})
 
+  vim.api.nvim_create_user_command("AICodersClose", function()
+    M.close_session()
+  end, {})
+
   vim.api.nvim_create_user_command("AICodersPick", function()
     M.pick_session()
   end, {})
@@ -178,6 +186,9 @@ local function set_keymaps()
   end
   if maps.prev_session then
     vim.keymap.set("n", maps.prev_session, M.prev_session, vim.tbl_extend("force", map_opts, { desc = "AI Coders: Previous chat" }))
+  end
+  if maps.close_session then
+    vim.keymap.set("n", maps.close_session, M.close_session, vim.tbl_extend("force", map_opts, { desc = "AI Coders: Close chat" }))
   end
   if maps.pick_session then
     vim.keymap.set("n", maps.pick_session, M.pick_session, vim.tbl_extend("force", map_opts, { desc = "AI Coders: Pick chat" }))

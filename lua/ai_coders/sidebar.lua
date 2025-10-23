@@ -23,7 +23,7 @@ local function build_header(sessions, current_index)
       table.insert(parts, string.format("[ %s ]", tag))
     end
   end
-  return " AI " .. table.concat(parts, " ") .. "  (ac:new)"
+  return " AI " .. table.concat(parts, " ") .. "  (ac:new | ad:close)"
 end
 
 local function valid_win(win)
@@ -48,6 +48,7 @@ local function ensure_placeholder_buf()
     " <leader>a f : toggle",
     " <leader>a ] : next chat",
     " <leader>a [ : previous chat",
+    " <leader>a d : close chat",
   }
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
   state.placeholder_buf = buf

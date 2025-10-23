@@ -167,6 +167,15 @@ function M.remove_by_buf(buf, opts, reason)
   end
 end
 
+function M.close_current(opts)
+  if not current_index or not sessions[current_index] then
+    Sidebar.show_placeholder(opts)
+    Sidebar.update_header({}, nil, opts)
+    return
+  end
+  remove_session(current_index, opts, "manual")
+end
+
 function M.reset()
   sessions = {}
   current_index = nil

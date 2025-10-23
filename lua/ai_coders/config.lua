@@ -44,6 +44,7 @@ M.defaults = {
     next_session = "<leader>a]",
     prev_session = "<leader>a[",
     pick_session = "<leader>ap",
+    close_session = "<leader>ad",
   },
   agents = default_agents,
   session = {
